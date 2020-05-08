@@ -14,7 +14,7 @@ See demo: http://softsimon.github.io/angular-2-dropdown-multiselect
 
 ## Quick start options
 
-* Install with [npm](https://www.npmjs.com): `npm install @rushvora/angular-2-dropdown-multiselect --save`.
+* Install with [npm](https://www.npmjs.com): `npm install @deliverysolutions/angular-2-dropdown-multiselect --save`.
 
 ## Usage
 
