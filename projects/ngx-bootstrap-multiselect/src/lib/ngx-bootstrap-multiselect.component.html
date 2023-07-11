@@ -14,7 +14,7 @@
           <i class="fe fe-search" aria-hidden="true"></i>
         </span>
       </div>
-      <input type="text" class="form-control" ssAutofocus [formControl]="filterControl" [placeholder]="texts.searchPlaceholder"
+      <input type="text" class="form-control" [ssAutofocus] [formControl]="filterControl" [placeholder]="texts.searchPlaceholder"
         class="form-control" style="border-top-left-radius: inherit; border-bottom-left-radius: inherit;"
         [style.border-top-right-radius]="filterControl.value.length > 0 ? 'inherit' : null" 
         [style.border-bottom-right-radius]="filterControl.value.length > 0 ? 'inherit' : null">
