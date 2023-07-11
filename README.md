@@ -1,10 +1,8 @@
-# AngularX Dropdown Multiselect for Bootstrap CSS 
+# Angular Multiselect Dropdown for Bootstrap CSS 
 
-Works with Angular Final and AOT compilation
+Compiled for Angular 15 with Ivy enabled. If you are using an older version of Angular and are relying on the View Engine, you can use version 2.1 of this library.
 
-Customizable dropdown multiselect in AngularX, TypeScript with bootstrap css.
-
-See demo: http://softsimon.github.io/angular-2-dropdown-multiselect
+Customizable multiselect dropdown in Angular(9+), TypeScript with Bootstrap css.
 
 #### Modified by rushvora to use feather icons instead of glyphicons or font awesome icons.
 
@@ -12,21 +10,21 @@ See demo: http://softsimon.github.io/angular-2-dropdown-multiselect
 * Bootstrap CSS 3 or 4
 * Font Awesome (optional)
 
-## Quick start options
+## Install
 
 * Install with [npm](https://www.npmjs.com): `npm install @deliverysolutions/angular-2-dropdown-multiselect --save`.
 
 ## Usage
 
-Import `MultiselectDropdown` into your @NgModule.
+Import `NgxBootstrapMultiselectModule` into your @NgModule.
 
 ```js
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { NgxBootstrapMultiselectModule } from '@deliverysolutions/angular-2-dropdown-multiselect';
 
 @NgModule({
   // ...
   imports: [
-    MultiselectDropdownModule,
+    NgxBootstrapMultiselectModule,
   ]
   // ...
 })
@@ -35,7 +33,7 @@ import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 Define options in your consuming component:
 
 ```js
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption } from 'ngx-bootstrap-multiselect';
 
 export class MyClass implements OnInit {
     optionsModel: number[];
@@ -56,7 +54,7 @@ export class MyClass implements OnInit {
 In your template, use the component directive:
 
 ```html
-<ss-multiselect-dropdown [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+<ngx-bootstrap-multiselect [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange()"></ngx-bootstrap-multiselect>
 ```
 
 ## Customize
@@ -104,53 +102,53 @@ myOptions: IMultiSelectOption[] = [
 ```
 
 ```html
-<ss-multiselect-dropdown [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel"></ss-multiselect-dropdown>
+<ngx-bootstrap-multiselect [options]="myOptions" [texts]="myTexts" [settings]="mySettings" [(ngModel)]="optionsModel"></ngx-bootstrap-multiselect>
 ```
 ### Settings
-| Setting              | Description                                                        | Default Value     |
-| -------------------- | ------------------------------------------------------------------ | ----------------  |
-| pullRight            | Float the dropdown to the right                                    | false             |
-| enableSearch         | Enable searching the dropdown items                                | false             |
-| checkedStyle         | Style of checked items one of 'checkboxes', 'glyphicon', 'fontawesome', or 'feather'  | 'checkboxes'      |
-| buttonClasses        | CSS classes to apply to the trigger button                         | 'btn btn-default' |
-| itemClasses          | CSS classes to apply to items                                      | ''                |
-| containerClasses     | CSS classes to apply to container div                              | 'dropdown-inline' |
-| selectionLimit       | Maximum number of items that may be selected (0 = no limit)        | 0                 |
-| minSelectionLimit    | Minimum number of items that may be selected                       | 0                 |
-| autoUnselect         | Unselect the previous selection(s) once selectionLimit is reached  | false             |
-| closeOnSelect        | If enabled, dropdown will be closed after selection                | false             |
-| showCheckAll         | Display the `checkAll` item to select all options                  | false             |
-| showUncheckAll       | Display the `uncheckAll` item to unselect all options              | false             |
-| fixedTitle           | Use the default title (do not apply the dynamic title)             | false             |
-| dynamicTitleMaxItems | The maximum number of options to display in the dynamic title      | 3                 |
-| maxHeight            | The maximum height for the dropdown (including unit)               | '300px'           |
-| displayAllSelectedText | Display the `allSelected` text when all options are selected    | false             |
-| searchRenderLimit    | If `enableSearch=true` and total amount of items more then `searchRenderLimit` (0 - No limit) then render items only when user typed more then or equal `searchRenderAfter` charachters    | 0             |
-| searchRenderAfter    | Amount of characters to trigger rendering of items                 | 1                 |
-| searchMaxLimit       | If more than zero will render only first N options in search results | 0             |
-| searchMaxRenderedItems | Used with searchMaxLimit to further limit rendering for optimization. Should be less than searchMaxLimit to take effect | 0             |
-| displayAllSelectedText | Display the `allSelected` text when all options are selected     | false             |
-| closeOnClickOutside  | Close dropdown when clicked outside                                | true              |
-| isLazyLoad           | An event, ```onLazyLoad```, triggers on scrolling to a specified distance from the bottom of the dropdown, allowing additional data to load | false             |
-| loadViewDistance     | Distance from bottom of dropdown to trigger lazy load, in units of dropdown viewport height | 1             |
-| stopScrollPropagation | Scrolling the dropdown will not overflow to document              | false             |
-| selectAddedValues    | Additional lazy loaded ```Select All``` values are checked when added on scrolling | false             |
-| ignoreLabels         | Ignore label options when counting selected options                | false             |
-| maintainSelectionOrderInTitle | The title will show selections in the order they were selected   | false             |
-| focusBack | Set the focus back to the input control when the dropdown closed              | true             |
+| Setting                       | Description                                                                                                                                                                             | Default Value     |
+|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------|
+| pullRight                     | Float the dropdown to the right                                                                                                                                                         | false             |
+| enableSearch                  | Enable searching the dropdown items                                                                                                                                                     | false             |
+| checkedStyle                  | Style of checked items one of 'checkboxes', 'glyphicon' or 'fontawesome'                                                                                                                | 'checkboxes'      |
+| buttonClasses                 | CSS classes to apply to the trigger button                                                                                                                                              | 'btn btn-default' |
+| itemClasses                   | CSS classes to apply to items                                                                                                                                                           | ''                |
+| containerClasses              | CSS classes to apply to container div                                                                                                                                                   | 'dropdown-inline' |
+| selectionLimit                | Maximum number of items that may be selected (0 = no limit)                                                                                                                             | 0                 |
+| minSelectionLimit             | Minimum number of items that may be selected                                                                                                                                            | 0                 |
+| autoUnselect                  | Unselect the previous selection(s) once selectionLimit is reached                                                                                                                       | false             |
+| closeOnSelect                 | If enabled, dropdown will be closed after selection                                                                                                                                     | false             |
+| showCheckAll                  | Display the `checkAll` item to select all options                                                                                                                                       | false             |
+| showUncheckAll                | Display the `uncheckAll` item to unselect all options                                                                                                                                   | false             |
+| fixedTitle                    | Use the default title (do not apply the dynamic title)                                                                                                                                  | false             |
+| dynamicTitleMaxItems          | The maximum number of options to display in the dynamic title                                                                                                                           | 3                 |
+| maxHeight                     | The maximum height for the dropdown (including unit)                                                                                                                                    | '300px'           |
+| displayAllSelectedText        | Display the `allSelected` text when all options are selected                                                                                                                            | false             |
+| searchRenderLimit             | If `enableSearch=true` and total amount of items more then `searchRenderLimit` (0 - No limit) then render items only when user typed more then or equal `searchRenderAfter` charachters | 0                 |
+| searchRenderAfter             | Amount of characters to trigger rendering of items                                                                                                                                      | 1                 |
+| searchMaxLimit                | If more than zero will render only first N options in search results                                                                                                                    | 0                 |
+| searchMaxRenderedItems        | Used with searchMaxLimit to further limit rendering for optimization. Should be less than searchMaxLimit to take effect                                                                 | 0                 |
+| displayAllSelectedText        | Display the `allSelected` text when all options are selected                                                                                                                            | false             |
+| closeOnClickOutside           | Close dropdown when clicked outside                                                                                                                                                     | true              |
+| isLazyLoad                    | An event, ```onLazyLoad```, triggers on scrolling to a specified distance from the bottom of the dropdown, allowing additional data to load                                             | false             |
+| loadViewDistance              | Distance from bottom of dropdown to trigger lazy load, in units of dropdown viewport height                                                                                             | 1                 |
+| stopScrollPropagation         | Scrolling the dropdown will not overflow to document                                                                                                                                    | false             |
+| selectAddedValues             | Additional lazy loaded ```Select All``` values are checked when added on scrolling                                                                                                      | false             |
+| ignoreLabels                  | Ignore label options when counting selected options                                                                                                                                     | false             |
+| maintainSelectionOrderInTitle | The title will show selections in the order they were selected                                                                                                                          | false             |
+| focusBack                     | Set the focus back to the input control when the dropdown closed                                                                                                                        | true              |
 
 ### Texts
-| Text Item             | Description                                | Default Value     |
-| --------------------- | ------------------------------------------ | ----------------  |
-| checkAll              | The text for the "check all" option        | 'Check all'       |
-| uncheckAll            | The text for the "uncheck all" option      | 'Uncheck all'     |
-| checked               | Text for "checked" with single item selected (used in dynamic title)    | 'checked' |
-| checkedPlural         | Text for "checked" with multiple items selected (used in dynamic title) | 'checked' |
-| searchPlaceholder     | Text initially displayed in search input   | 'Search...'       |
-| defaultTitle          | Title displayed in button before selection | 'Select'          |
-| allSelected           | Text displayed when all items are selected (must be enabled in options) | 'All selected' |
-| searchEmptyResult     | Text displayed when no items are rendered  | 'Nothing found...' |
-| searchNoRenderText    | Text displayed when items rendering disabled by the `searchRenderLimit` option | 'Type in search box to see results...' |
+| Text Item          | Description                                                                    | Default Value                          |
+|--------------------|--------------------------------------------------------------------------------|----------------------------------------|
+| checkAll           | The text for the "check all" option                                            | 'Check all'                            |
+| uncheckAll         | The text for the "uncheck all" option                                          | 'Uncheck all'                          |
+| checked            | Text for "checked" with single item selected (used in dynamic title)           | 'checked'                              |
+| checkedPlural      | Text for "checked" with multiple items selected (used in dynamic title)        | 'checked'                              |
+| searchPlaceholder  | Text initially displayed in search input                                       | 'Search...'                            |
+| defaultTitle       | Title displayed in button before selection                                     | 'Select'                               |
+| allSelected        | Text displayed when all items are selected (must be enabled in options)        | 'All selected'                         |
+| searchEmptyResult  | Text displayed when no items are rendered                                      | 'Nothing found...'                     |
+| searchNoRenderText | Text displayed when items rendering disabled by the `searchRenderLimit` option | 'Type in search box to see results...' |
 
 ## Other examples
 
@@ -184,10 +182,9 @@ The implementor will be responsible for completing checks when the form is submi
 ### Use model driven forms with ReactiveFormsModule:
 
 ```js
-import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption } from '@deliverysolutions/angular-2-dropdown-multiselect';
 
 export class MyClass implements OnInit {
-    model: number[];
     myOptions: IMultiSelectOption[] = [
         { id: 1, name: 'Option 1' },
         { id: 2, name: 'Option 2' },
@@ -208,7 +205,7 @@ export class MyClass implements OnInit {
 
 ```html
 <form [formGroup]="myForm">
-    <ss-multiselect-dropdown [options]="myOptions" formControlName="optionsModel"></ss-multiselect-dropdown>
+    <ngx-bootstrap-multiselect [options]="myOptions" formControlName="optionsModel"></ngx-bootstrap-multiselect>
 </form>
 ```
 

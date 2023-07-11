@@ -1,13 +1,10 @@
-
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   DoCheck,
-  ElementRef,
   EventEmitter,
   forwardRef,
-  HostListener,
   Input,
   IterableDiffers,
   OnChanges,
@@ -16,6 +13,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+
 import {
   AbstractControl,
   ControlValueAccessor,
@@ -24,69 +22,58 @@ import {
   NG_VALUE_ACCESSOR,
   Validator,
 } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
+import { takeUntil } from 'rxjs/operators';
 import { MultiSelectSearchFilter } from './search-filter.pipe';
 import { IMultiSelectOption, IMultiSelectSettings, IMultiSelectTexts, } from './types';
-
-/*
- * Angular 2 Dropdown Multiselect for Bootstrap
- *
- * Simon Lindh
- * https://github.com/softsimon/angular-2-dropdown-multiselect
- */
+import { Subject, Observable } from 'rxjs';
 
 const MULTISELECT_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => MultiselectDropdownComponent),
+  useExisting: forwardRef(() => NgxDropdownMultiselectComponent),
   multi: true,
 };
 
+// tslint:disable-next-line: no-conflicting-lifecycle
 @Component({
-  selector: 'ss-multiselect-dropdown',
-  templateUrl: './dropdown.component.html',
-  styleUrls: ['./dropdown.component.css'],
+  selector: 'ngx-bootstrap-multiselect',
+  templateUrl: './ngx-bootstrap-multiselect.component.html',
+  styleUrls: ['./ngx-bootstrap-multiselect.component.css'],
   providers: [MULTISELECT_VALUE_ACCESSOR, MultiSelectSearchFilter],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MultiselectDropdownComponent
-  implements OnInit,
+export class NgxDropdownMultiselectComponent implements OnInit,
   OnChanges,
   DoCheck,
   OnDestroy,
   ControlValueAccessor,
   Validator {
+
+  private localIsVisible = false;
+  private workerDocClicked = false;
+
   filterControl: FormControl = this.fb.control('');
 
   @Input() options: Array<IMultiSelectOption>;
   @Input() settings: IMultiSelectSettings;
   @Input() texts: IMultiSelectTexts;
-  @Input() disabled: boolean = false;
-  @Input() disabledSelection: boolean = false;
+  @Input() disabled = false;
+  @Input() disabledSelection = false;
   @Input() searchFunction: (str: string) => RegExp = this._escapeRegExp;
 
   @Output() selectionLimitReached = new EventEmitter();
   @Output() dropdownClosed = new EventEmitter();
   @Output() dropdownOpened = new EventEmitter();
-  @Output() onAdded = new EventEmitter();
-  @Output() onRemoved = new EventEmitter();
-  @Output() onLazyLoad = new EventEmitter();
-  @Output() onFilter: Observable<string> = this.filterControl.valueChanges;
+  @Output() added = new EventEmitter();
+  @Output() removed = new EventEmitter();
+  @Output() lazyLoad = new EventEmitter();
+  @Output() filter: Observable<string> = this.filterControl.valueChanges;
 
   get focusBack(): boolean {
     return this.settings.focusBack && this._focusBack;
   }
 
-  public clickedOutside(): void {
-    if (!this.isVisible || !this.settings.closeOnClickOutside) { return; }
-
-    this.isVisible = false;
-    this._focusBack = true;
-    this.dropdownClosed.emit();
-  }
-
-  destroyed$ = new Subject<any>();
+  destroyed$ = new Subject<void>();
 
   filteredOptions: IMultiSelectOption[] = [];
   lazyLoadOptions: IMultiSelectOption[] = [];
@@ -96,13 +83,13 @@ export class MultiselectDropdownComponent
   parents: any[];
   title: string;
   differ: any;
-  numSelected: number = 0;
+  numSelected = 0;
   set isVisible(val: boolean) {
-    this._isVisible = val;
-    this._workerDocClicked = val ? false : this._workerDocClicked;
+    this.localIsVisible = val;
+    this.workerDocClicked = val ? false : this.workerDocClicked;
   }
-  get isVisible() {
-    return this._isVisible;
+  get isVisible(): boolean {
+    return this.localIsVisible;
   }
   renderItems = true;
   checkAllSearchRegister = new Set();
@@ -141,10 +128,10 @@ export class MultiselectDropdownComponent
     focusBack: true
   };
   defaultTexts: IMultiSelectTexts = {
-    checkAll: 'Check all',
-    uncheckAll: 'Uncheck all',
-    checked: 'checked',
-    checkedPlural: 'checked',
+    checkAll: 'Select all',
+    uncheckAll: 'Unselect all',
+    checked: 'selected',
+    checkedPlural: 'selected',
     searchPlaceholder: 'Search...',
     searchEmptyResult: 'Nothing found...',
     searchNoRenderText: 'Type in search box to see results...',
@@ -152,23 +139,19 @@ export class MultiselectDropdownComponent
     allSelected: 'All selected',
   };
 
-  get searchLimit() {
+  get searchLimit(): number | undefined {
     return this.settings.searchRenderLimit;
   }
 
-  get searchRenderAfter() {
+  get searchRenderAfter(): number | undefined {
     return this.settings.searchRenderAfter;
   }
 
-  get searchLimitApplied() {
+  get searchLimitApplied(): boolean {
     return this.searchLimit > 0 && this.options.length > this.searchLimit;
   }
 
-  private _isVisible = false;
-  private _workerDocClicked = false;
-
   constructor(
-    private element: ElementRef,
     private fb: FormBuilder,
     private searchFilter: MultiSelectSearchFilter,
     differs: IterableDiffers,
@@ -177,6 +160,14 @@ export class MultiselectDropdownComponent
     this.differ = differs.find([]).create(null);
     this.settings = this.defaultSettings;
     this.texts = this.defaultTexts;
+  }
+
+  clickedOutside(): void {
+    if (!this.isVisible || !this.settings.closeOnClickOutside) { return; }
+
+    this.isVisible = false;
+    this._focusBack = true;
+    this.dropdownClosed.emit();
   }
 
   getItemStyle(option: IMultiSelectOption): any {
@@ -195,8 +186,9 @@ export class MultiselectDropdownComponent
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title = this.texts.defaultTitle || '';
+
     this.filterControl.valueChanges.pipe(takeUntil(this.destroyed$)).subscribe(() => {
       this.updateRenderItems();
       if (this.settings.isLazyLoad) {
@@ -234,7 +226,7 @@ export class MultiselectDropdownComponent
         if (this.checkAllStatus) {
           this.addChecks(addedValues);
         } else if (this.checkAllSearchRegister.size > 0) {
-          this.checkAllSearchRegister.forEach(searchValue =>
+          this.checkAllSearchRegister.forEach((searchValue: string) =>
             this.addChecks(this.applyFilters(addedValues, searchValue))
           );
         }
@@ -282,7 +274,7 @@ export class MultiselectDropdownComponent
     }
   }
 
-  applyFilters(options, value) {
+  applyFilters(options: IMultiSelectOption[], value: string): IMultiSelectOption[] {
     return this.searchFilter.transform(
       options,
       value,
@@ -292,7 +284,7 @@ export class MultiselectDropdownComponent
     );
   }
 
-  fireModelChange() {
+  fireModelChange(): void {
     if (this.model != this.prevModel) {
       this.prevModel = this.model;
       this.onModelChange(this.model);
@@ -394,6 +386,8 @@ export class MultiselectDropdownComponent
     if (this.disabledSelection) {
       return;
     }
+
+    setTimeout(() => {
       this.maybeStopPropagation(_event);
       this.maybePreventDefault(_event);
       const index = this.model.indexOf(option.id);
@@ -402,7 +396,7 @@ export class MultiselectDropdownComponent
         this.model.length >= this.settings.selectionLimit;
       const removeItem = (idx, id): void => {
         this.model.splice(idx, 1);
-        this.onRemoved.emit(id);
+        this.removed.emit(id);
         if (
           this.settings.isLazyLoad &&
           this.lazyLoadOptions.some(val => val.id === id)
@@ -444,7 +438,7 @@ export class MultiselectDropdownComponent
       } else {
         const addItem = (id): void => {
           this.model.push(id);
-          this.onAdded.emit(id);
+          this.added.emit(id);
           if (
             this.settings.isLazyLoad &&
             !this.lazyLoadOptions.some(val => val.id === id)
@@ -479,6 +473,8 @@ export class MultiselectDropdownComponent
       }
       this.model = this.model.slice();
       this.fireModelChange();
+
+    }, 0)
   }
 
   updateNumSelected() {
@@ -551,7 +547,7 @@ export class MultiselectDropdownComponent
             !(this.settings.ignoreLabels && option.isLabel)
           )
         ) {
-          this.onAdded.emit(option.id);
+          this.added.emit(option.id);
           return true;
         }
         return false;
@@ -561,7 +557,7 @@ export class MultiselectDropdownComponent
     this.model = this.model.concat(checkedOptions);
   }
 
-  checkAll() {
+  checkAll(): void {
     if (!this.disabledSelection) {
       this.addChecks(
         !this.searchFilterApplied() ? this.options : this.filteredOptions
@@ -579,7 +575,7 @@ export class MultiselectDropdownComponent
     }
   }
 
-  uncheckAll() {
+  uncheckAll(): void {
     if (!this.disabledSelection) {
       const checkedOptions = this.model;
       let unCheckedOptions = !this.searchFilterApplied()
@@ -595,7 +591,7 @@ export class MultiselectDropdownComponent
         ) {
           return true;
         } else {
-          this.onRemoved.emit(id);
+          this.removed.emit(id);
           return false;
         }
       });
@@ -603,7 +599,7 @@ export class MultiselectDropdownComponent
         if (this.searchFilterApplied()) {
           if (this.checkAllSearchRegister.has(this.filterControl.value)) {
             this.checkAllSearchRegister.delete(this.filterControl.value);
-            this.checkAllSearchRegister.forEach(function (searchTerm) {
+            this.checkAllSearchRegister.forEach(function(searchTerm) {
               const filterOptions = this.applyFilters(this.options.filter(option => unCheckedOptions.indexOf(option.id) > -1), searchTerm);
               this.addChecks(filterOptions);
             });
@@ -618,7 +614,7 @@ export class MultiselectDropdownComponent
     }
   }
 
-  preventCheckboxCheck(event: Event, option: IMultiSelectOption) {
+  preventCheckboxCheck(event: Event, option: IMultiSelectOption): void {
     if (
       option.disabled ||
       (
@@ -637,7 +633,7 @@ export class MultiselectDropdownComponent
     return this.disabledSelection || option && option.disabled;
   }
 
-  checkScrollPosition(ev) {
+  checkScrollPosition(ev): void {
     const scrollTop = ev.target.scrollTop;
     const scrollHeight = ev.target.scrollHeight;
     const scrollElementHeight = ev.target.clientHeight;
@@ -655,7 +651,7 @@ export class MultiselectDropdownComponent
     }
   }
 
-  checkScrollPropagation(ev, element) {
+  checkScrollPropagation(ev, element): void {
     const scrollTop = element.scrollTop;
     const scrollHeight = element.scrollHeight;
     const scrollElementHeight = element.clientHeight;
@@ -670,12 +666,12 @@ export class MultiselectDropdownComponent
     }
   }
 
-  trackById(idx: number, selectOption: IMultiSelectOption) {
+  trackById(idx: number, selectOption: IMultiSelectOption): void {
     return selectOption.id;
   }
 
-  load() {
-    this.onLazyLoad.emit({
+  load(): void {
+    this.lazyLoad.emit({
       length: this.options.length,
       filter: this.filterControl.value,
       checkAllSearches: this.checkAllSearchRegister,
@@ -683,7 +679,7 @@ export class MultiselectDropdownComponent
     });
   }
 
-  focusItem(dir: number, e?: Event) {
+  focusItem(dir: number, e?: Event): void {
     if (!this.isVisible) {
       return;
     }
@@ -706,21 +702,20 @@ export class MultiselectDropdownComponent
     this.focusedItem = this.filteredOptions[newIdx];
   }
 
-  private maybePreventDefault(e?: { preventDefault?: Function }) {
+  private maybePreventDefault(e?: Event): void {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
   }
 
-  private maybeStopPropagation(e?: { stopPropagation?: Function }) {
+  private maybeStopPropagation(e?: Event): void {
     if (e && e.stopPropagation) {
       e.stopPropagation();
     }
   }
-  
+
   private _escapeRegExp(str: string): RegExp {
-    const regExpStr = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    const regExpStr = str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
     return new RegExp(regExpStr, 'i');
   }
-
 }

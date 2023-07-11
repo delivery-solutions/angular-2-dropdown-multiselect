@@ -3,21 +3,26 @@
 
   <p>
     Normal:
-    <ss-multiselect-dropdown [options]="data.options" [ngModel]="data.selectedItems"></ss-multiselect-dropdown>
+    <ngx-bootstrap-multiselect [options]="data.options" [ngModel]="data.selectedItems"></ngx-bootstrap-multiselect>
   </p>
 
   <p>
     With search and buttons:
-    <ss-multiselect-dropdown [options]="data.options" [settings]="settings" [ngModel]="data.selectedItems"></ss-multiselect-dropdown>
+    <ngx-bootstrap-multiselect [options]="data.options" [settings]="settings" [ngModel]="data.selectedItems"></ngx-bootstrap-multiselect>
   </p>
 
   <p>
     With custom prefix search and buttons:
-    <ss-multiselect-dropdown [options]="data.options" [settings]="settings" [ngModel]="data.selectedItems" [searchFunction]=prefixSearchFunction></ss-multiselect-dropdown>
+    <ngx-bootstrap-multiselect [options]="data.options" [settings]="settings" [ngModel]="data.selectedItems" [searchFunction]=prefixSearchFunction></ngx-bootstrap-multiselect>
+  </p>
+
+  <p>
+    With parent and child options
+    <ngx-bootstrap-multiselect [options]="multiOptions" [settings]="settings" [ngModel]="data.selectedItems" [searchFunction]=prefixSearchFunction></ngx-bootstrap-multiselect>
   </p>
   
   <p>
     With parent and child options
-    <ss-multiselect-dropdown [options]="multiOptions" [settings]="settings" [ngModel]="data.selectedItems" [searchFunction]=prefixSearchFunction></ss-multiselect-dropdown>
+    <ngx-bootstrap-multiselect [options]="multiOptions" [settings]="settings" [ngModel]="data.selectedItems" [searchFunction]=prefixSearchFunction></ngx-bootstrap-multiselect>
   </p>
 </div>

@@ -1,16 +1,38 @@
-﻿{
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es6", "dom", "es7"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "paths": {
+      "ngx-bootstrap-multiselect": [
+        "dist/ngx-bootstrap-multiselect"
+      ]
+    },
+    "baseUrl": "./",
+    "outDir": "./dist/ngx-bootstrap-multiselect",
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictPropertyInitialization": false,
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
+    "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2020",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ]
   },
   "angularCompilerOptions": {
-    "genDir": "compiled"
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }
