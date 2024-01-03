@@ -42,7 +42,8 @@ export class DummyComponent {
   settings: IMultiSelectSettings = {
     enableSearch: true,
     showCheckAll: true,
-    showUncheckAll: true
+    showUncheckAll: true,
+    checkedStyle: 'feather'
   };
 
   prefixSearchFunction(str: string): RegExp {

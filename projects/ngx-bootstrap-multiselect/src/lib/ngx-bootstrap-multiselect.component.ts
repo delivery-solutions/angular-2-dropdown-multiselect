@@ -387,7 +387,6 @@ export class NgxDropdownMultiselectComponent implements OnInit,
       return;
     }
 
-    setTimeout(() => {
       this.maybeStopPropagation(_event);
       this.maybePreventDefault(_event);
       const index = this.model.indexOf(option.id);
@@ -473,8 +472,6 @@ export class NgxDropdownMultiselectComponent implements OnInit,
       }
       this.model = this.model.slice();
       this.fireModelChange();
-
-    }, 0)
   }
 
   updateNumSelected() {

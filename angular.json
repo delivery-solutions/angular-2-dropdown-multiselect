@@ -65,6 +65,28 @@
             "preserveSymlinks": true
           },
           "configurations": {
+            "local": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "demo/src/environments/environment.ts",
+                  "with": "demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": false,
+              "outputHashing": "none",
+              "sourceMap": true,
+              "namedChunks": false,
+              "aot": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false
+            },
             "production": {
               "budgets": [
                 {
@@ -96,6 +118,9 @@
             "port": 4200
           },
           "configurations": {
+            "local": {
+              "browserTarget": "demo:build:local"
+            },
             "production": {
               "browserTarget": "demo:build:production"
             }
