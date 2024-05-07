@@ -1,6 +1,7 @@
 export interface IMultiSelectOption {
   id: any;
   name: string;
+  secondaryName?: string;
   disabled?: boolean;
   isLabel?: boolean;
   parentId?: any;
