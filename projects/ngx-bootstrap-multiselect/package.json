@@ -1,6 +1,6 @@
 {
   "name": "@deliverysolutions/angular-2-dropdown-multiselect",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Customizable multiselect dropdown in Angular 2 with bootstrap css.",
   "repository": {
     "type": "git",

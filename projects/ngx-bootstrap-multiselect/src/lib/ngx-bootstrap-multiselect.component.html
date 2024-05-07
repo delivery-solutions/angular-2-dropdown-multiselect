@@ -83,8 +83,10 @@
             <div class="custom-control custom-checkbox" [ngClass]="{'ml-4' : this.parents.length > 0 && this.parents.indexOf(option.id) < 0}">
               <input type="checkbox" [checked]="isSelected(option)" (click)="preventCheckboxCheck($event, option)" id="randMultiCheckbox{{i}}"
                 class="custom-control-input" [disabled]="isCheckboxDisabled(option)" [ngStyle]="getItemStyleSelectionDisabled()" />
-              <label for="randMultiCheckbox{{i}}" class="custom-control-label"><span
-                  [style.font-weight]="this.parents.indexOf(option.id)>=0?'bold':'normal'">{{option.name}}</span></label>
+              <label for="randMultiCheckbox{{i}}" class="custom-control-label">
+                <span [style.font-weight]="this.parents.indexOf(option.id)>=0?'bold':'normal'">{{option.name}}</span>
+                <span class="secondary-name text-muted small" *ngIf="option.secondaryName"> {{option.secondaryName}}</span>
+              </label>
             </div>
           </ng-container>
         </ng-container>
