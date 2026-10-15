@@ -1,7 +1,8 @@
 import { Directive, ElementRef, Host, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 @Directive({
-  selector: '[ssAutofocus]'
+  selector: '[ssAutofocus]',
+  standalone: false
 })
 export class AutofocusDirective implements OnInit, OnChanges {
 

@@ -1,12 +1,10 @@
 {
   "name": "@deliverysolutions/angular-2-dropdown-multiselect",
-  "version": "3.2.0",
+  "version": "4.0.0",
   "description": "Customizable dropdown multiselect in Angular 2 with bootstrap css.",
-  "main": "dist/bundles/dropdown.umd.js",
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "private": true,
   "engines": {
-    "node": ">=18.0.0",
+    "node": "^22.22.3 || ^24.15.0 || >=26.0.0",
     "npm": ">=9.0.0"
   },
   "scripts": {
@@ -34,26 +32,26 @@
   },
   "homepage": "https://github.com/ds-arb/angular-2-dropdown-multiselect.git",
   "devDependencies": {
-    "@angular-devkit/build-angular": "^15.0.0",
-    "@angular/animations": "^15.0.0",
-    "@angular/cli": "^15.0.0",
-    "@angular/common": "^15.0.0",
-    "@angular/compiler": "^15.0.0",
-    "@angular/compiler-cli": "^15.0.0",
-    "@angular/core": "^15.0.0",
-    "@angular/forms": "^15.0.0",
-    "@angular/platform-browser": "^15.0.0",
-    "@angular/platform-browser-dynamic": "^15.0.0",
-    "@angular/platform-server": "^15.0.0",
-    "@angular/router": "^15.0.0",
+    "@angular-devkit/build-angular": "22.1.8",
+    "@angular/animations": "22.1.7",
+    "@angular/cli": "22.1.8",
+    "@angular/common": "22.1.7",
+    "@angular/compiler": "22.1.7",
+    "@angular/compiler-cli": "22.1.7",
+    "@angular/core": "22.1.7",
+    "@angular/forms": "22.1.7",
+    "@angular/platform-browser": "22.1.7",
+    "@angular/platform-browser-dynamic": "22.1.7",
+    "@angular/platform-server": "22.1.7",
+    "@angular/router": "22.1.7",
     "@types/core-js": "^2.5.3",
     "@types/jasmine": "^4.3.1",
     "copyfiles": "^2.0.0",
-    "ng-packagr": "^15.2.2",
+    "ng-packagr": "22.1.0",
     "rimraf": "^4.2.0",
-    "rxjs": "^7.8.0",
+    "rxjs": "7.8.2",
     "tslib": "^2.5.0",
-    "typescript": "~4.9.5",
-    "zone.js": "~0.12.0"
+    "typescript": "6.0.3",
+    "zone.js": "~0.16.0"
   }
 }

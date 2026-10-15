@@ -5,6 +5,7 @@ import { DataModel } from './data-model';
 
 @Component({
   selector: 'app-dummy',
+  standalone: false,
   templateUrl: './dummy.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
