@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, provideZoneChangeDetection } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -18,7 +18,8 @@ import { DummyComponent } from './dummy.component';
     NgxBootstrapMultiselectModule,
   ],
   providers: [
-    DataService
+    DataService,
+    provideZoneChangeDetection()
   ],
   bootstrap: [AppComponent]
 })

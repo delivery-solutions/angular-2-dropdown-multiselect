@@ -37,6 +37,7 @@ const MULTISELECT_VALUE_ACCESSOR: any = {
 // tslint:disable-next-line: no-conflicting-lifecycle
 @Component({
   selector: 'ngx-bootstrap-multiselect',
+  standalone: false,
   templateUrl: './ngx-bootstrap-multiselect.component.html',
   styleUrls: ['./ngx-bootstrap-multiselect.component.css'],
   providers: [MULTISELECT_VALUE_ACCESSOR, MultiSelectSearchFilter],

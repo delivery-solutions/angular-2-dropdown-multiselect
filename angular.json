@@ -114,22 +114,22 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demo:build",
+            "buildTarget": "demo:build",
             "port": 4200
           },
           "configurations": {
             "local": {
-              "browserTarget": "demo:build:local"
+              "buildTarget": "demo:build:local"
             },
             "production": {
-              "browserTarget": "demo:build:production"
+              "buildTarget": "demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "demo:build"
+            "buildTarget": "demo:build"
           }
         },
         "lint": {
